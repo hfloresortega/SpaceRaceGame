@@ -2,12 +2,16 @@ package main;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Window extends JPanel implements Runnable{
 	
+	//Test 
+	final int PlayerSize = 60;
 	Thread gameThread;
 	
 	public Window(int screenWidth, int screenHeight) {
@@ -31,9 +35,31 @@ public class Window extends JPanel implements Runnable{
 	//GameLoop
 	@Override
 	public void run() {
-		
+		while(gameThread != null) {
+			//System.out.println("The game loop is running");
+			
+			//1 Update: update information such as player position
+			update();
+			
+			//2 Draw: draw the screen with the update information
+			repaint();
+		}
 		
 	}
 	
+	public void update() {
+		
+	}
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		Graphics2D g2 = (Graphics2D)g;
+		
+		g2.setColor(Color.white);
+		
+		g2.fillRect(100, 100, PlayerSize, PlayerSize);
+		
+		g2.dispose();
+	}
 	
 }
