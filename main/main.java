@@ -24,6 +24,8 @@ public class main {
 		window.setLocationRelativeTo(null);
 		//For see window
 		window.setVisible(true);
+		
+		Gamewindow.startGameThread();
 	}
 	
 }
