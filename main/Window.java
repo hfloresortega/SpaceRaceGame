@@ -4,26 +4,24 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Window extends JPanel implements Runnable{
+public class Window extends JPanel implements Runnable {
 	
 	//Test 
 	final int PlayerSize = 60;
 	Thread gameThread;
+	SpaceRaceGame game; // connects game class
 	
 	public Window(int screenWidth, int screenHeight) {
-		
-		
-		
 		
 		//Create window 
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.black);
 		//Better rendering performance
 		this.setDoubleBuffered(true);
+		
+		game = new SpaceRaceGame(); // initializes game logic
 	}
 
 	public void startGameThread() {
@@ -48,6 +46,7 @@ public class Window extends JPanel implements Runnable{
 	}
 	
 	public void update() {
+		game.update(); // updates game logic
 		
 	}
 	public void paintComponent(Graphics g) {

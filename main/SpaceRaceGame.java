@@ -12,6 +12,9 @@
 *
 * Version: 2025-10-27
 */
+
+package main;
+
 import javax.swing.Timer;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -47,10 +50,6 @@ public class SpaceRaceGame {
             }
         });
         timer.start();
-    }
-
-    public static void main(String[] args) {
-        new GameWindow(); // launches GUI
     }
 
     // starts game
