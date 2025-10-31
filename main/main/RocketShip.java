@@ -1,43 +1,66 @@
 /**
 * Lead Author(s):
 * @author Hassel Flores Ortega
-* @author Ivan
+* @author Ivan Fesiunov
 
 * References:
 * Morelli, R., & Walde, R. (2016).
 * Java, Java, Java: Object-Oriented Problem Solving
 * https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
 *
-* Version: 2025-10-30
+* Version: 2025-10-31
 */
 package main;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 
 public class RocketShip
 {
+	GameWindow gw;
+	KeyHandler keyH;
+	
 	// position of rocket
-	int x;
-	int y;
+	public int x;
+	public int y;
+	
+	//Store to image data
+	public BufferedImage rocket;
+	//Folder picture
+	public String directionFolder;
 	
 	// size of rocket
-	int width = 40;
-	int height = 60;
+	int sizeWidth = 40;
+	int sizeHeight = 60;
 	
 	// rocket speed
-	int speed = 1;
+	int speed;
 	
 	// starting position of rocket
-	public RocketShip(int x, int y)
-	{
-		this.x = x;
-		this.y = y;		
+	public void setDefaultValues() {
+		x = 100;
+		y = 500;
+		speed = 1;
 	}
 
+	
+	
 	public void moveUp()  // moves rocket up
 	{
 		y = y - speed;
 		
+	}
+	
+	public void update() {
+		 
+	}
+	
+	public void draw(Graphics2D g2) {
+		   // draw player rocket
+        g2.setColor(Color.white);
+        g2.fillRect(x, y, sizeWidth, sizeHeight);
 	}
 	
 	public void resetPosition(int newY) // resets rocket to y position
@@ -47,8 +70,9 @@ public class RocketShip
 	
 	public Rectangle getBounds() // for collision detection 
 	{
-		return new Rectangle (x,y,width,height);
+		return new Rectangle (x,y,sizeWidth,sizeHeight);
 	}
+	
 	public int getY()
 	{
 		return y;
