@@ -41,15 +41,15 @@ public class SpaceRaceGame {
         asteroids = new ArrayList<>();
         asteroids.add(new Asteroid(300, 0));
         asteroids.add(new Asteroid(500, 0));
-
-        // timer
-        timer = new Timer(16, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                update();
-            }
-        });
-        timer.start();
+//
+//        // timer
+//        timer = new Timer(16, new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                update();
+//            }
+//        });
+//        timer.start();
     }
 
     // starts game
@@ -57,30 +57,30 @@ public class SpaceRaceGame {
         isRunning = true;
     }
 
-    // updates game
-    public void update() {
-        if (isRunning == true) {
-            // move computer rocket
-            player2.autoMove();
-
-            // move asteroids
-            for (int i = 0; i < asteroids.size(); i++) {
-                Asteroid a = asteroids.get(i);
-                a.moveRandomly();
-
-                // check collisions inside loop
-                if (a.getBounds().intersects(player1.getBounds())) {
-                    player1.resetPosition(500);
-                }
-                if (a.getBounds().intersects(player2.getBounds())) {
-                    player2.resetPosition(500);
-                }
-            }
-
-            // checks if rockets reached top
-            checkTop();
-        }
-    }
+//    // updates game
+//    public void update() {
+//        if (isRunning == true) {
+//            // move computer rocket
+//            player2.autoMove();
+//
+//            // move asteroids
+//            for (int i = 0; i < asteroids.size(); i++) {
+//                Asteroid a = asteroids.get(i);
+//                a.moveRandomly();
+//
+//                // check collisions inside loop
+//                if (a.getBounds().intersects(player1.getBounds())) {
+//                    player1.resetPosition(500);
+//                }
+//                if (a.getBounds().intersects(player2.getBounds())) {
+//                    player2.resetPosition(500);
+//                }
+//            }
+//
+//            // checks if rockets reached top
+//            checkTop();
+//        }
+//    }
 
     // checks if rockets reached top of game window
     public void checkTop() {
