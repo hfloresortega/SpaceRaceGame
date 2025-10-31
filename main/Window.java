@@ -9,9 +9,9 @@ import javax.swing.JPanel;
 public class Window extends JPanel implements Runnable {
 	
 	//Test 
-	final int PlayerSize = 60;
 	Thread gameThread;
 	SpaceRaceGame game; // connects game class
+	final int PlayerSize = 60;
 	
 	public Window(int screenWidth, int screenHeight) {
 		
@@ -37,7 +37,7 @@ public class Window extends JPanel implements Runnable {
 			//System.out.println("The game loop is running");
 			
 			//1 Update: update information such as player position
-			update();
+			game.update();
 			
 			//2 Draw: draw the screen with the update information
 			repaint();

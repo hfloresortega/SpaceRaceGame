@@ -14,9 +14,9 @@ public class main {
 		window.setTitle("Space Race Game");
 		
 		//Create game window
-		Window Gamewindow = new Window(720, 780);
+		Window gameWindow = new Window(720, 780);
 		//Add game window
-		window.add(Gamewindow);
+		window.add(gameWindow);
 		
 		window.pack();
 		
@@ -25,7 +25,7 @@ public class main {
 		//For see window
 		window.setVisible(true);
 		
-		Gamewindow.startGameThread();
+		gameWindow.startGameThread();
 	}
 	
 }
