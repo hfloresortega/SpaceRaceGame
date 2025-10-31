@@ -33,7 +33,7 @@ public class Asteroid
 	int height = 40;
 	
 	// speed of asteroid
-	int speed = 4;
+	int speed = 1;
 	
 	Random random = new Random(); //makes asteroids appear randomly
 	

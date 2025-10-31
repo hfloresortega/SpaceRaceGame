@@ -25,7 +25,7 @@ public class RocketShip
 	int height = 60;
 	
 	// rocket speed
-	int speed = 5;
+	int speed = 1;
 	
 	// starting position of rocket
 	public RocketShip(int x, int y)
