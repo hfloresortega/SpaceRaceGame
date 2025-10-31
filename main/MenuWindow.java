@@ -19,49 +19,57 @@
 */
 package main;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuWindow {
 
     public MenuWindow() {
+        // creates the menu frame
         JFrame menuFrame = new JFrame("Space Race Menu");
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menuFrame.setSize(300, 200);
         menuFrame.setResizable(false);
-        menuFrame.setLocationRelativeTo(null);
+        menuFrame.setLocationRelativeTo(null); // center on screen
 
+        // creates a panel to hold the button
         JPanel panel = new JPanel();
+
+        // creates a Start Game button
         JButton startButton = new JButton("Start Game");
 
-        // when button is clicked, open the game window
+        // adds button to panel
+        panel.add(startButton);
+
+        // adds panel to frame
+        menuFrame.add(panel);
+
+        // make the menu visible
+        menuFrame.setVisible(true);
+
+        // action when the start button is clicked
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Close menu
+                // close the menu window
                 menuFrame.dispose();
 
-                // Open game window
-                JFrame window = new JFrame();
+                // create the game window
+                JFrame window = new JFrame("Space Race Game");
                 window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 window.setResizable(false);
-                window.setTitle("Space Race Game");
 
-                Window gameWindow = new Window(720, 780);
+                // create and add the game panel
+                GameWindow gameWindow = new GameWindow(720, 780);
                 window.add(gameWindow);
                 window.pack();
-                window.setLocationRelativeTo(null);
+                window.setLocationRelativeTo(null); // center on screen
                 window.setVisible(true);
 
+                // start the game loop
                 gameWindow.startGameThread();
             }
         });
-
-        panel.add(startButton);
-        menuFrame.add(panel);
-        menuFrame.setVisible(true);
     }
 }
