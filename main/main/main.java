@@ -21,6 +21,6 @@ public class main {
 	
 	public static void main(String[] args) {
 		SpaceRaceGame game = new SpaceRaceGame();
-        //new MenuWindow();
+        new MenuWindow();
     }
 }

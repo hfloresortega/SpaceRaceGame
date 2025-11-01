@@ -27,7 +27,7 @@ public class MenuWindow {
 
     public MenuWindow() {
         // creates the menu frame
-        JFrame menuFrame = new JFrame("Space Race Menu");
+        JFrame menuFrame = new JFrame("Space Race Game");
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menuFrame.setSize(300, 200);
         menuFrame.setResizable(false);
