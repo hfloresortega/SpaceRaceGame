@@ -49,13 +49,25 @@ public class RocketShip
 	
 	public void moveUp()  // moves rocket up
 	{
+		try 
+		{
 		y = y - speed;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace(); // for debugging
+		}
+		
 		
 	}
-	
-	public void update() {
-		 
-	}
+	// updates method for rocket
+	 public void update() {
+	        try {
+	            // no default behavior
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
 	
 	public void draw(Graphics2D g2) {
 		   // draw player rocket
@@ -68,11 +80,16 @@ public class RocketShip
 		y = newY;
 	}
 	
-	public Rectangle getBounds() // for collision detection 
-	{
-		return new Rectangle (x,y,sizeWidth,sizeHeight);
-	}
-	
+	public Rectangle getBounds() {
+        try 
+        {
+          return new Rectangle(x, y, sizeWidth, sizeHeight);
+        } catch (Exception e) 
+        {
+            e.printStackTrace();
+            return null; // returns null if something goes wrong
+        }
+    }
 	public int getY()
 	{
 		return y;

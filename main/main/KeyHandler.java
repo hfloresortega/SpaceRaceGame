@@ -1,3 +1,19 @@
+
+/**
+* Lead Author(s):
+* @author Hassel Flores Ortega
+* @author Ivan Fesiunov
+* 
+* References:
+* Morelli, R., & Walde, R. (2016).
+* Java, Java, Java: Object-Oriented Problem Solving
+* https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+*
+
+*
+* Version: 2025-10-31
+*/
+
 package main;
 
 import java.awt.event.KeyEvent;
@@ -16,8 +32,7 @@ public class KeyHandler implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
-		
-		
+		try {
 		int code = e.getKeyCode();
 		
 		if (code == KeyEvent.VK_W) {
@@ -32,6 +47,12 @@ public class KeyHandler implements KeyListener{
 		if (code == KeyEvent.VK_D) {
 			rightPressed = true;
 		}
+	} 	
+		catch(Exception b) // catches unexpecterd errors when player presses a key
+		{
+			b.printStackTrace();
+		}
+		
 	}
 
 	@Override

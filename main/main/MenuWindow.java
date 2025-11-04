@@ -52,6 +52,7 @@ public class MenuWindow {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	try {
                 // close the menu window
                 menuFrame.dispose();
 
@@ -69,6 +70,11 @@ public class MenuWindow {
 
                 // start the game loop
                 gameWindow.startGameThread();
+                
+            	} catch (Exception b) // catches exceptions when starting game
+            	{
+            		b.printStackTrace();
+            	}
             }
         });
     }

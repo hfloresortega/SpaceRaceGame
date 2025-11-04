@@ -1,19 +1,14 @@
 /**
 * Lead Author(s):
-* @author hasse; student ID
-* @author Full name; student ID
-* <<Add additional lead authors here>>
-*
-* Other Contributors:
-* Full name; student ID or contact information if not in class
-* <<Add additional contributors (mentors, tutors, friends) here, with contact information>>
-*
+* @author Hassel Flores Ortega
+* @author Ivan Fesiunov
+* 
 * References:
 * Morelli, R., & Walde, R. (2016).
 * Java, Java, Java: Object-Oriented Problem Solving
 * https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
 *
-* <<Add more references here>>
+
 *
 * Version: 2025-10-29
 */
@@ -39,6 +34,7 @@ public class Asteroid
 	public BufferedImage asteroid1;
 	public BufferedImage asteroid2;
 	public BufferedImage asteroid3;
+	
 	//Folder picture
 	public String directionFolder;
 	
@@ -56,7 +52,15 @@ public class Asteroid
 		this.gw = gw;
 		this.x = x; 
 		this.y = y;
+		
+		//initializes images and folders
+		try {
 		setDefaultValues();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace(); // catches unexpected errors during initialization 
+		}
 	}
 	
 	//Get asteroid image
@@ -66,7 +70,7 @@ public class Asteroid
 				asteroid1 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid.png"));
 				asteroid2 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid1.png"));
 				asteroid3 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid.png"));
-			} catch(IOException e) {
+			} catch(IOException e) { // catches IO exceptions 
 				e.printStackTrace();
 			}
 		}

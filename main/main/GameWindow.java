@@ -27,12 +27,15 @@ import javax.swing.JPanel;
 public class GameWindow extends JPanel implements Runnable {
 
     Thread gameThread;
-    //SpaceRaceGame game; // connects game logic
+  
     KeyHandler keyH = new KeyHandler();
+    
     //Initialize Rocket 
     RocketPlayer player1 = new RocketPlayer(this, keyH);
     ComputerPlayer player2 = new ComputerPlayer(this);
+    
     ArrayList<Asteroid> asteroids;
+    
     // initializes asteroids 
     Asteroid asteroid = new Asteroid(this, 300, 0);
    
@@ -42,7 +45,7 @@ public class GameWindow extends JPanel implements Runnable {
     int scorePlayer2 = 0;
     
     
-    int FPS = 60;
+    int FPS = 60; //frames per second
     
     // timer variables
     long startTime;
@@ -55,13 +58,14 @@ public class GameWindow extends JPanel implements Runnable {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true); // better rendering
-        this.addKeyListener(keyH);
-        this.setFocusable(true);
+        this.addKeyListener(keyH); // for keyboard input
+        this.setFocusable(true); 
 
        // initialize timer
         startTime = System.currentTimeMillis();
     }
 
+    // starts game loop in new thread
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
@@ -85,22 +89,38 @@ public class GameWindow extends JPanel implements Runnable {
             lastTime = currentTime;
 
             if (delta >= 1) {
-                update();  // update player and game objects
-                repaint(); // draw everything
+            	
+            	try
+            	{
+                update(); // update player and game objects with exception handling
+            	}	
+            	catch (Exception e)
+            	{
+            		System.out.println("There was an error updating" + e.getMessage()); // catches runtime errors during updates
+            		e.printStackTrace();
+            	}
+              try 
+              {
+            	  repaint(); // draw everything
+              }
+              catch (Exception e)
+              {
+            	  System.out.println("There was an error repainting" + e.getMessage());
+              }
                 delta--;
                 drawCount++;
             }
 
-            if (timer >= 1000000000) {
+            if (timer >= 1000000000) { // prints FPS to monitor performance
                 System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
             }
         }
     }
-    //Update system
+    //Updates game objects and checks collisions
     public void update() {
-    	
+   try {
 	   //update player
     	player1.update();
     	
@@ -135,8 +155,13 @@ public class GameWindow extends JPanel implements Runnable {
             showFinalWinner();
             isRunning = false;
         }
-        
+    }  
+    catch (Exception e) // catches unexpceted runtime erros when updating game logic
+    {
+    	System.out.println("There was an error while updating: " + e.getMessage());
+    	e.printStackTrace();
     }
+  }
     
  // checks if rockets reached top of game window
     public void checkTop() {
@@ -205,21 +230,5 @@ public class GameWindow extends JPanel implements Runnable {
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+     
 }

@@ -24,43 +24,46 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class SpaceRaceGame {
-    Timer timer;
-
-   
-
-    //ArrayList<Asteroid> asteroids;
+    Timer timer; // timer to update game
 
     boolean isRunning = true; 
 
     public SpaceRaceGame() {
 
-        //Create window ...
+        // create window
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("Space Race Game");
+        
         //Initialize rockets and create window
         GameWindow gameWindow = new GameWindow(720, 780);
         window.add(gameWindow);
         
-        window.pack();
+        window.pack(); //sizes window to fit everything
         
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+        window.setLocationRelativeTo(null); // centers window on screen
+        window.setVisible(true); // shows window 
         
-        gameWindow.startGameThread();
-        //....
-        
-        
+        gameWindow.startGameThread(); // starts game animation
+     
 
         // timer
         timer = new Timer(16, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                update();
+               try
+               {
+            	   update(); //updates game 
+               }
+               catch (Exception b) // catches any potential errors during updates
+               {
+            	   System.out.println("Oops, something went wrong: " + b.getMessage());
+               }
+                
             }
         });
-        timer.start();
+        timer.start(); // starts timer
     }
 
     // starts game
@@ -78,30 +81,4 @@ public class SpaceRaceGame {
         }
     }
 
-    
-    
-//    // ends game and shows winner
-//    public void endGame() {
-//        isRunning = false;
-//
-//        String winner = "";
-//        if (scorePlayer1 > scorePlayer2) {
-//            winner = "Player 1 Wins :D";
-//        } else if (scorePlayer2 > scorePlayer1) {
-//            winner = "Computer Wins :(";
-//        } else {
-//            winner = "It's a Tie :O";
-//        }
-//
-//        JOptionPane.showMessageDialog(null, winner);
-//    }
-//
-//    // resets game
-//    public void resetGame() {
-//        scorePlayer1 = 0;
-//        scorePlayer2 = 0;
-//        player1.resetPosition(500);
-//        player2.resetPosition(500);
-//        startGame();
-//    }
 }

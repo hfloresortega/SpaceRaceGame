@@ -59,25 +59,26 @@ public class RocketPlayer extends RocketShip
 	
 	@Override
 	public void update() {
-		 // move player using keys and update sprite
-       if (keyH.upPressed) {
-    	   directionFolder = "rocket";
-           moveUp();
-       }
-       else if (keyH.downPressed) {
-    	   directionFolder = "rocket";
-           y += speed; // move down
-       }
-       else if (keyH.leftPressed) {
-    	   directionFolder = "rocket";
-       	x -= speed;
-       }
-       else if (keyH.rightPressed) {
-    	   directionFolder = "rocket";
-       	x += speed;
-       }
-       // could add left/right if needed
-	}
+        try {
+            // move player using key input
+            if (keyH.upPressed) {
+                directionFolder = "rocket";
+                moveUp();
+            } else if (keyH.downPressed) {
+                directionFolder = "rocket";
+                y += speed; // move down
+            } else if (keyH.leftPressed) {
+                directionFolder = "rocket";
+                x -= speed; // move left
+            } else if (keyH.rightPressed) {
+                directionFolder = "rocket";
+                x += speed; // move right
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 	@Override
 	public void draw(Graphics2D g2) {
 		   // draw player rocket
@@ -91,20 +92,5 @@ public class RocketPlayer extends RocketShip
 		
 		g2.drawImage(image, x, y, sizeWidth, sizeHeight, null);
 	}
-	
-	//Don't need because have in parent class RocketShip
-//    @Override
-//    // for collision detection
-//    public Rectangle getBounds() {
-//        return new Rectangle(x, y, sizeWidth, sizeHeight);
-//    }
 
-	//Don't need because have in parent class RocketShip
-//    @Override
-//    // resets player to a y position
-//    public void resetPosition(int newY) {
-//        y = newY;
-//    }
-
-  
 }
