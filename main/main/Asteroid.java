@@ -30,10 +30,17 @@ public class Asteroid
 	int x;
 	int y;
 	
+	//Animation variable
+	public int spriteCounter = 0;
+	public int spriteNum = 1;
+	
 	//Store to image data
 	public BufferedImage asteroid1;
 	public BufferedImage asteroid2;
 	public BufferedImage asteroid3;
+	public BufferedImage asteroid4;
+	public BufferedImage asteroid5;
+	public BufferedImage asteroid6;
 	
 	//Folder picture
 	public String directionFolder;
@@ -67,9 +74,12 @@ public class Asteroid
 		public void getPlayerImage() {
 			try {
 				//Variant asteroids
-				asteroid1 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid.png"));
-				asteroid2 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid1.png"));
-				asteroid3 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid.png"));
+				asteroid1 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Anim1.png"));
+				asteroid2 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Anim2.png"));
+				asteroid3 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Anim3.png"));
+				asteroid4 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Anim4.png"));
+				asteroid5 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Anim5.png"));
+				asteroid6 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Anim6.png"));
 			} catch(IOException e) { // catches IO exceptions 
 				e.printStackTrace();
 			}
@@ -77,7 +87,7 @@ public class Asteroid
 	
 	// starting position of rocket
 	public void setDefaultValues() {
-		directionFolder = "asteroid1";
+		directionFolder = "asteroid";
 		getPlayerImage();
 	}
 		
@@ -99,8 +109,33 @@ public class Asteroid
 		return new Rectangle(x, y, sizeWidth, sizeHeight);
 	}
 	
+	
+	//Update asteroid
 	public void update() {
-		directionFolder = "asteroid1";
+		//Update animation sprite 
+		directionFolder = "asteroid";
+		spriteCounter++;
+		//Change > 10 on other for make speed animation
+		if(spriteCounter > 10) {
+			if(spriteNum == 1) {
+				spriteNum = 2;
+			}
+			else if(spriteNum == 2) {
+				spriteNum = 3;
+			}
+			else if(spriteNum == 3) {
+				spriteNum = 4;
+			}
+			else if(spriteNum == 4) {
+				spriteNum = 5;
+			}
+			else if(spriteNum == 5) {
+				spriteNum = 6;
+			}
+			else if(spriteNum == 6)
+			spriteNum = 1;
+			spriteCounter = 0;
+		}
 	}
 	
 	public void draw(Graphics2D g2) {
@@ -108,8 +143,30 @@ public class Asteroid
 		BufferedImage image = null;
 		
 		switch(directionFolder) {
-		case "asteroid1":
-			image = asteroid1;
+		case "asteroid":
+			//Update sprite asteroid
+			if(spriteNum == 1) {
+				image = asteroid1;
+			}
+			if(spriteNum == 2) {
+				image = asteroid2;
+			}
+
+			if(spriteNum == 3) {
+				image = asteroid3;
+			}
+
+			if(spriteNum == 4) {
+				image = asteroid4;
+			}
+
+			if(spriteNum == 5) {
+				image = asteroid5;
+			}
+
+			if(spriteNum == 6) {
+				image = asteroid6;
+			}
 			break;
 		}
 		
