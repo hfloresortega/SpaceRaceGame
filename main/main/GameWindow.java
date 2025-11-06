@@ -34,10 +34,10 @@ public class GameWindow extends JPanel implements Runnable {
     RocketPlayer player1 = new RocketPlayer(this, keyH);
     ComputerPlayer player2 = new ComputerPlayer(this);
     
-    ArrayList<Asteroid> asteroids;
+    ArrayList<Asteroid> asteroids = new ArrayList<>();
     
     // initializes asteroids 
-    Asteroid asteroid = new Asteroid(this, 300, 0);
+//    Asteroid asteroid = new Asteroid(this, 300, 0);
    
     
     //test
@@ -62,9 +62,24 @@ public class GameWindow extends JPanel implements Runnable {
         this.setDoubleBuffered(true); // better rendering
         this.addKeyListener(keyH); // for keyboard input
         this.setFocusable(true); 
-
        // initialize timer
         startTime = System.currentTimeMillis();
+        
+        // random asteroids floating around game
+        asteroids.add(new Asteroid(this, 300,0));
+        asteroids.add(new Asteroid(this,500,200));
+        asteroids.add(new Asteroid(this,100,400));
+        asteroids.add(new Asteroid(this,700,150));
+        asteroids.add(new Asteroid(this,400,200));
+        asteroids.add(new Asteroid(this,600,100));
+        asteroids.add(new Asteroid(this,100,200));
+        asteroids.add(new Asteroid(this,700,50));
+        asteroids.add(new Asteroid(this,900,300));
+        asteroids.add(new Asteroid(this,50,200));
+        asteroids.add(new Asteroid(this,500,20));
+        
+        
+        
     }
 
     // starts game loop in new thread
@@ -135,10 +150,11 @@ public class GameWindow extends JPanel implements Runnable {
     	// move computer rocket
     	player2.autoMove();
         
-    	asteroid.moveRandomly(); // moves asteroids randomly
-    	
-
-    	asteroid.update();
+    	for (Asteroid ast : asteroids) 
+    	{
+    		ast.moveRandomly();
+    		ast.update();
+    	}
     	
     	// checks if rockets reached top
         checkTop();
@@ -147,13 +163,15 @@ public class GameWindow extends JPanel implements Runnable {
         elapsedTime = (int)((System.currentTimeMillis() - startTime)/ 1000);
         
      // check collisions for Player 1
-        if (asteroid.getBounds().intersects(player1.getBounds())) {
-            player1.resetPosition(500); // reset position
-            // optional: you could subtract a point if you want
-        }
-
+       for (Asteroid ast: asteroids )
+       {
+    	   if (ast.getBounds().intersects(player1.getBounds()))
+    	   {
+    		   player1.resetPosition(500);
+    	   }
+       
         // check collisions for computer player
-        if (asteroid.getBounds().intersects(player2.getBounds())) {
+        if (ast.getBounds().intersects(player2.getBounds())) {
             player2.resetPosition(500);
         }
         // automatically end game after 60 seconds
@@ -161,7 +179,8 @@ public class GameWindow extends JPanel implements Runnable {
             showFinalWinner();
             isRunning = false;
         }
-    }  
+        
+    }  }
     catch (Exception e) // catches unexpceted runtime erros when updating game logic
     {
     	System.out.println("There was an error while updating: " + e.getMessage());
@@ -194,7 +213,11 @@ public class GameWindow extends JPanel implements Runnable {
         // draw computer rocket
         player2.draw(g2);
 
-        asteroid.draw(g2);
+        for(Asteroid ast : asteroids)
+        {
+            ast.draw(g2);
+        }
+  
    
         g2.setColor(Color.RED);
         g2.setFont(new Font("Arial", Font.BOLD, 16));
