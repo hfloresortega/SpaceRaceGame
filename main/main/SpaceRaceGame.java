@@ -34,19 +34,7 @@ public class SpaceRaceGame {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("Space Race Game");
-        
-        //Initialize rockets and create window
-        GameWindow gameWindow = new GameWindow(720, 780);
-        window.add(gameWindow);
-        
-        window.pack(); //sizes window to fit everything
-        
-        window.setLocationRelativeTo(null); // centers window on screen
-        window.setVisible(true); // shows window 
-        
-        gameWindow.startGameThread(); // starts game animation
-     
+        window.setTitle("Space Race Game"); 
 
         // timer
         timer = new Timer(16, new ActionListener() {
