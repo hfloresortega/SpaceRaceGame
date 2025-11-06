@@ -47,6 +47,8 @@ public class GameWindow extends JPanel implements Runnable {
     
     int FPS = 60; //frames per second
     
+    Sound sound = new Sound();
+    
     // timer variables
     long startTime;
     int elapsedTime = 0;
@@ -81,6 +83,10 @@ public class GameWindow extends JPanel implements Runnable {
         long timer = 0;
         int drawCount = 0;
 
+        //Add Baground music
+        playMusic(0);
+        
+        
         //Update window in 60 FPS
         while (gameThread != null) {
             currentTime = System.nanoTime();
@@ -229,6 +235,20 @@ public class GameWindow extends JPanel implements Runnable {
             System.exit(0);
         }
     }
-    
+    //Play music class
+    public void playMusic(int i) {
+    	sound.setFile(i);
+    	sound.play();
+    	sound.loop();
+    }
+    //Stop music class
+    public void stopMusic() {
+    	sound.stop();
+    }
+    //Play sound effect else sound is short 
+    public void playSoundEffect(int i) {
+    	sound.setFile(i);
+    	sound.play();
+    }
      
 }
