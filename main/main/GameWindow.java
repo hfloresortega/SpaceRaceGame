@@ -34,6 +34,7 @@ public class GameWindow extends JPanel implements Runnable {
     RocketPlayer player1 = new RocketPlayer(this, keyH);
     ComputerPlayer player2 = new ComputerPlayer(this);
     
+    // list that will hold all asteroid objects
     ArrayList<Asteroid> asteroids = new ArrayList<>();
     
     // initializes asteroids 
@@ -54,6 +55,7 @@ public class GameWindow extends JPanel implements Runnable {
     int elapsedTime = 0;
     
     boolean isRunning = true;
+    boolean gameOver = false;  
     
     public GameWindow(int screenWidth, int screenHeight) {
         // Set window size and background
@@ -62,10 +64,12 @@ public class GameWindow extends JPanel implements Runnable {
         this.setDoubleBuffered(true); // better rendering
         this.addKeyListener(keyH); // for keyboard input
         this.setFocusable(true); 
+        
        // initialize timer
         startTime = System.currentTimeMillis();
+      
         
-        // random asteroids floating around game
+        // each new asteroid is added to the list
         asteroids.add(new Asteroid(this, 300,0));
         asteroids.add(new Asteroid(this,500,200));
         asteroids.add(new Asteroid(this,100,400));
@@ -78,8 +82,6 @@ public class GameWindow extends JPanel implements Runnable {
         asteroids.add(new Asteroid(this,50,200));
         asteroids.add(new Asteroid(this,500,20));
         
-        
-        
     }
 
     // starts game loop in new thread
@@ -91,7 +93,7 @@ public class GameWindow extends JPanel implements Runnable {
     // Game loop
     @Override
     public void run() {
-        double drawInterval = 1000000000 / FPS;
+        double drawInterval = 1000000000 / FPS; // how long one frame should take
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -103,13 +105,13 @@ public class GameWindow extends JPanel implements Runnable {
         
         
         //Update window in 60 FPS
-        while (gameThread != null) {
+        while (gameThread != null) { // runs while the game is active
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval;
             timer += (currentTime - lastTime);
             lastTime = currentTime;
 
-            if (delta >= 1) {
+            if (delta >= 1) { // time to update/draw a frame
             	
             	try
             	{
@@ -139,60 +141,66 @@ public class GameWindow extends JPanel implements Runnable {
             }
         }
     }
+
     //Updates game objects and checks collisions
     public void update() {
-   try {
-	   //update player
-    	player1.update();
-    	
-    	//update bot player
-    	player2.update();
-    	// move computer rocket
-    	player2.autoMove();
-        
-    	for (Asteroid ast : asteroids) 
-    	{
-    		ast.moveRandomly();
-    		ast.update();
-    	}
-    	
-    	// checks if rockets reached top
-        checkTop();
-        
-        // updates timer
-        elapsedTime = (int)((System.currentTimeMillis() - startTime)/ 1000);
-        
-     // check collisions for Player 1
-       for (Asteroid ast: asteroids )
-       {
-    	   if (ast.getBounds().intersects(player1.getBounds()))
-    	   {
-    		   player1.resetPosition(500);
-    	   }
-       
-        // check collisions for computer player
-        if (ast.getBounds().intersects(player2.getBounds())) {
-            player2.resetPosition(500);
+       try {
+           //update player movement based on input
+           player1.update();
+           
+           //update bot player movement and automatic behavior
+           player2.update();
+           // move computer rocket
+           player2.autoMove();
+            
+           // update asteroid positions
+           for (Asteroid ast : asteroids) 
+           {
+               ast.moveRandomly(); // small random drifting movement
+               ast.update(); // update position and bounding box
+           }
+           
+           // checks if rockets reached top
+           checkTop();
+            
+           // updates timer
+           elapsedTime = (int)((System.currentTimeMillis() - startTime)/ 1000);
+            
+           // check collisions for both players
+           for (Asteroid ast: asteroids )
+           {
+               // if player hits asteroid, reset position
+               if (ast.getBounds().intersects(player1.getBounds()))
+               {
+                   player1.resetPosition(500);
+               }
+           
+               // check collisions for computer player
+               if (ast.getBounds().intersects(player2.getBounds())) {
+                   player2.resetPosition(500);
+               }
+           }
+
+           // automatically end game after 60 seconds
+           if (elapsedTime >= 60 && gameOver == false) {
+               gameOver = true;  //it only happens once
+               showFinalWinner(); // display who won
+           }
+
+        }  
+        catch (Exception e) // catches unexpceted runtime erros when updating game logic
+        {
+            System.out.println("There was an error while updating: " + e.getMessage());
+            e.printStackTrace();
         }
-        // automatically end game after 60 seconds
-        if (elapsedTime >= 60) {
-            showFinalWinner();
-            isRunning = false;
-        }
-        
-    }  }
-    catch (Exception e) // catches unexpceted runtime erros when updating game logic
-    {
-    	System.out.println("There was an error while updating: " + e.getMessage());
-    	e.printStackTrace();
     }
-  }
     
  // checks if rockets reached top of game window
     public void checkTop() {
+        // if a rocket reaches y <= 0, it scored
         if (player1.getY() <= 0) {
             scorePlayer1++;
-            player1.resetPosition(500);
+            player1.resetPosition(500); // reset to starting area
         }
 
         if (player2.getY() <= 0) {
@@ -213,12 +221,13 @@ public class GameWindow extends JPanel implements Runnable {
         // draw computer rocket
         player2.draw(g2);
 
+        // draw all asteroids
         for(Asteroid ast : asteroids)
         {
             ast.draw(g2);
         }
   
-   
+        // draw UI text such as scores and timer
         g2.setColor(Color.RED);
         g2.setFont(new Font("Arial", Font.BOLD, 16));
         g2.drawString("Player 1 Score: " + scorePlayer1, 10, 20);
@@ -232,46 +241,68 @@ public class GameWindow extends JPanel implements Runnable {
     }
    
     // messages shown once a winner is decided
-    public void showFinalWinner() { 
+    public void showFinalWinner() {
+
         String winnerMessage = "";
+
+        // determine which player scored more
         if (scorePlayer1 > scorePlayer2) {
-            winnerMessage = "Player 1 Wins:D \nScore: " + scorePlayer1 + " - " + scorePlayer2;
-        } else if (scorePlayer2 > scorePlayer1) {
-            winnerMessage = "Computer Wins D:\nScore: " + scorePlayer2 + " - " + scorePlayer1;
-        } else {
+            winnerMessage = "Player 1 Wins!\nScore: " + scorePlayer1 + " - " + scorePlayer2;
+        } 
+        else if (scorePlayer2 > scorePlayer1) {
+            winnerMessage = "Computer Wins!\nScore: " + scorePlayer2 + " - " + scorePlayer1;
+        } 
+        else {
             winnerMessage = "It's a Tie!\nScore: " + scorePlayer1 + " - " + scorePlayer2;
         }
 
-        javax.swing.JOptionPane.showMessageDialog(this, winnerMessage, "Game Over", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-        // asks to play again
-        int option = javax.swing.JOptionPane.showConfirmDialog(this, "Play again?", "Restart Game", javax.swing.JOptionPane.YES_NO_OPTION);
-        if (option == javax.swing.JOptionPane.YES_OPTION) {
-            // reset scores, positions and timer
-            scorePlayer1 = 0;
-            scorePlayer2 = 0;
-            player1.resetPosition(500);
-            player2.resetPosition(500);
-            startTime = System.currentTimeMillis();
-            isRunning = true;
-        } else {
-            // exits the entire program
-            System.exit(0);
+        // ask user if they want to play again
+        int choice = javax.swing.JOptionPane.showConfirmDialog(this,
+                winnerMessage + "\n\nPlay again?",
+                "Game Over",
+                javax.swing.JOptionPane.YES_NO_OPTION);
+
+        // if yes, restart game values
+        if (choice == javax.swing.JOptionPane.YES_OPTION) {
+            restartGame();
+        } 
+        else {
+            System.exit(0); // close game
         }
     }
+    
+    public void restartGame() {
+
+        // reset scores
+        scorePlayer1 = 0;
+        scorePlayer2 = 0;
+
+        // reset player positions
+        player1.resetPosition(500);
+        player2.resetPosition(500);
+
+        // reset timer
+        startTime = System.currentTimeMillis();
+        elapsedTime = 0;
+
+        // allow game loop to continue normally again
+        gameOver = false;
+    }
+
     //Play music class
     public void playMusic(int i) {
-    	sound.setFile(i);
-    	sound.play();
-    	sound.loop();
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
     }
     //Stop music class
     public void stopMusic() {
-    	sound.stop();
+        sound.stop();
     }
     //Play sound effect else sound is short 
     public void playSoundEffect(int i) {
-    	sound.setFile(i);
-    	sound.play();
+        sound.setFile(i);
+        sound.play();
     }
      
 }
