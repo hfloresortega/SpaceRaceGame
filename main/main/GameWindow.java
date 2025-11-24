@@ -70,17 +70,17 @@ public class GameWindow extends JPanel implements Runnable {
       
         
         // each new asteroid is added to the list
-        asteroids.add(new Asteroid(this, 300,0));
-        asteroids.add(new Asteroid(this,500,200));
-        asteroids.add(new Asteroid(this,100,400));
-        asteroids.add(new Asteroid(this,700,150));
-        asteroids.add(new Asteroid(this,400,200));
-        asteroids.add(new Asteroid(this,600,100));
-        asteroids.add(new Asteroid(this,100,200));
-        asteroids.add(new Asteroid(this,700,50));
-        asteroids.add(new Asteroid(this,900,300));
-        asteroids.add(new Asteroid(this,50,200));
-        asteroids.add(new Asteroid(this,500,20));
+        asteroids.add(new Asteroid(this, 300,0, 1));
+        asteroids.add(new Asteroid(this,500,200, 2));
+        asteroids.add(new Asteroid(this,100,400, 1));
+        asteroids.add(new Asteroid(this,700,150, 2));
+        asteroids.add(new Asteroid(this,400,200, 1));
+        asteroids.add(new Asteroid(this,600,100, 1));
+        asteroids.add(new Asteroid(this,100,200, 2));
+        asteroids.add(new Asteroid(this,700,50, 2));
+        asteroids.add(new Asteroid(this,900,300, 1));
+        asteroids.add(new Asteroid(this,50,200, 1));
+        asteroids.add(new Asteroid(this,500,20, 1));
         
     }
 
