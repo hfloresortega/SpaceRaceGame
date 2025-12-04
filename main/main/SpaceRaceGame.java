@@ -46,7 +46,7 @@ public class SpaceRaceGame {
                }
                catch (Exception b) // catches any potential errors during updates
                {
-            	   System.out.println("Oops, something went wrong: " + b.getMessage());
+            	   System.out.println("Something went wrong: " + b.getMessage()); 
                }
                 
             }
