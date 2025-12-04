@@ -37,7 +37,13 @@ public class RocketPlayer extends RocketShip
 		this.gw = gw;
 		this.keyH = keyH;		
 		setDefaultValues();
-		getPlayerImage();
+		try { 
+			getPlayerImage(); 
+		} 
+		catch(Exception e) 
+		{ 
+			e.printStackTrace(); // catches error if problem loading image 
+		} 
 	}
 	// starting position of rocket
 	@Override
@@ -74,7 +80,7 @@ public class RocketPlayer extends RocketShip
                 directionFolder = "rocket";
                 x += speed; // move right
             }
-        } catch (Exception e)
+        } catch (Exception e) // catches error if theres problem updating a players position  
         {
             e.printStackTrace();
         }
@@ -89,8 +95,12 @@ public class RocketPlayer extends RocketShip
 			image = rocket;
 			break;
 		}
-		
-		g2.drawImage(image, x, y, sizeWidth, sizeHeight, null);
+		try {
+			g2.drawImage(image, x, y, sizeWidth, sizeHeight, null);
+		}
+		catch (Exception e) {  //  catches error if unable to draw player rocket 
+			e.printStackTrace();
+		}
 	}
 
 }
