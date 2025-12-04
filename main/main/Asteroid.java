@@ -35,12 +35,14 @@ public class Asteroid
 	public int spriteNum = 1;
 	
 	//Store to image data
+	//First asteroid
 	public BufferedImage asteroid1;
 	public BufferedImage asteroid2;
 	public BufferedImage asteroid3;
 	public BufferedImage asteroid4;
 	public BufferedImage asteroid5;
 	public BufferedImage asteroid6;
+	//Second asteroid
 	public BufferedImage asteroidSmoll1;
 	public BufferedImage asteroidSmoll2;
 	public BufferedImage asteroidSmoll3;
@@ -116,8 +118,12 @@ public class Asteroid
 		
 	public void moveRandomly() // asteroid moves to left and resets when it leaves screen
 	{
+		try {
 		x = x - speed;
-	
+		}
+		catch(Exception e) {
+			e.printStackTrace(); // catches unexpected errors in movement of asteroids 
+		}
 	
 	if (x < 0) // moves asteroid to right side randomly if asteroid goes to left
 	{
@@ -201,10 +207,17 @@ public class Asteroid
 			break;
 		}
 		
-		//Draw asteroid Small
-		g2.drawImage(image2, x, y, sizeWidth, sizeHeight, null);
-		//Draw asteroid default
-		g2.drawImage(image, x, y, sizeWidth, sizeHeight, null);
+		try {
+			//Draw asteroid Small
+			g2.drawImage(image2, x, y, sizeWidth, sizeHeight, null);
+			//Draw asteroid default
+			g2.drawImage(image, x, y, sizeWidth, sizeHeight, null);	
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace(); // catches errors if image doesnt load correctly 
+		}
+		
 	}
 }
 	
