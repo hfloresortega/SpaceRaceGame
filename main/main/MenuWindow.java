@@ -19,78 +19,133 @@
 */
 package main;
 
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
 import javax.swing.*;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuWindow {
+public class MenuWindow extends Application{
+	
+	//JavaFX window 
+	@Override
+    public void start(Stage primaryStage) {
+    	String videoPath = getClass().getResource("/video/Space_Star.mp4").toExternalForm();
+    	Media media = new Media(videoPath);
+    	MediaPlayer player = new MediaPlayer(media);
+    	player.setCycleCount(MediaPlayer.INDEFINITE); //Loop video
+    	player.setAutoPlay(true);
+    	
+    	MediaView mediaView = new MediaView(player);
+    	
+    	//Create button
+    	Button startButton = new Button("Start Game");
+    	
+    	//Action button
+    	startButton.setOnAction(e -> { 
+    		primaryStage.close();
+    		MenuWindow();
+    		
+    	});
+    	
+    	VBox controls = new VBox(10, startButton);
+    	controls.setStyle("-fx-alignment: center;");
+    	
+    	
+    	// StackPane: first video, after button
+    	StackPane root = new StackPane();
+    	root.getChildren().addAll(mediaView, controls);
+    	
+    	Scene scene = new Scene(root, 720, 780);
+    	primaryStage.setScene(scene);
+    	primaryStage.setTitle("Space Race Game");
+    	primaryStage.show();
+    }
+	
+    private void MenuWindow() {
+    	
+    	SwingUtilities.invokeLater(() -> {
+    		try {
+    		// create the game window
+            JFrame window = new JFrame("Space Race Game");
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            window.setResizable(false);
 
-    public MenuWindow() {
+            // create and add the game panel
+            GameWindow gameWindow = new GameWindow(720, 780);
+            window.add(gameWindow);
+            window.pack();
+            window.setLocationRelativeTo(null); // center on screen
+            window.setVisible(true);
+
+            // start the game loop
+            gameWindow.startGameThread();
+            
+        	} catch (Exception b) // catches exceptions when starting game
+        	{
+        		b.printStackTrace();
+        	}
+    	});
+    	
         // creates the menu frame
-        JFrame menuFrame = new JFrame("Space Race Game");
-        menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        menuFrame.setSize(720, 780);
-        menuFrame.setResizable(false);
-        menuFrame.setLocationRelativeTo(null); // center on screen
+//        JFrame menuFrame = new JFrame("Space Race Game");
+//        menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        menuFrame.setSize(720, 780);
+//        menuFrame.setResizable(false);
+//        menuFrame.setLocationRelativeTo(null); // center on screen
 
         // creates a panel to hold the button
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
+//        JPanel panel = new JPanel();
+//        panel.setLayout(new GridBagLayout());
 
         // creates a Start Game button
-        JButton startButton = new JButton("Start Game");
+        //JButton startButton = new JButton("Start Game");
         
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(0, 0, 0, 0);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-
-        // adds button to panel
-        panel.add(startButton, gbc);
+//        GridBagConstraints gbc = new GridBagConstraints();
+//        gbc.insets = new Insets(0, 0, 0, 0);
+//        gbc.gridx = 0;
+//        gbc.gridy = 0;
+//        gbc.anchor = GridBagConstraints.CENTER;
+//
+//        // adds button to panel
+//        panel.add(startButton, gbc);
 
         // adds panel to frame
-        menuFrame.add(panel);
+//        menuFrame.add(panel);
 
         // make the menu visible
-        menuFrame.setVisible(true);
+//        menuFrame.setVisible(true);
 
         // action when the start button is clicked
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	try {
-                // close the menu window
-                menuFrame.dispose();
-
-                // create the game window
-                JFrame window = new JFrame("Space Race Game");
-                window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                window.setResizable(false);
-
-                // create and add the game panel
-                GameWindow gameWindow = new GameWindow(720, 780);
-                window.add(gameWindow);
-                window.pack();
-                window.setLocationRelativeTo(null); // center on screen
-                window.setVisible(true);
-
-                // start the game loop
-                gameWindow.startGameThread();
-                
-            	} catch (Exception b) // catches exceptions when starting game
-            	{
-            		b.printStackTrace();
-            	}
-            }
-        });
+//        startButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//            	try {
+//                // close the menu window
+//                menuFrame.dispose();
+//
+//                
+//            }
+//        });
     }
     
-    public void GateClose() {
-    	
+    public static void main(String[] args) {
+    	launch(args);
     }
+    
+    
 }
