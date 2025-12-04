@@ -83,12 +83,12 @@ public class Asteroid
 				if (number == 1) {
 					try {
 						//Variant asteroids
-						asteroid1 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Anim1.png"));
-						asteroid2 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Anim2.png"));
-						asteroid3 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Anim3.png"));
-						asteroid4 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Anim4.png"));
-						asteroid5 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Anim5.png"));
-						asteroid6 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Anim6.png"));
+						asteroid1 = ImageIO.read(getClass().getResourceAsStream("/asteroid/Asteroid_Anim1.png"));
+						asteroid2 = ImageIO.read(getClass().getResourceAsStream("/asteroid/Asteroid_Anim2.png"));
+						asteroid3 = ImageIO.read(getClass().getResourceAsStream("/asteroid/Asteroid_Anim3.png"));
+						asteroid4 = ImageIO.read(getClass().getResourceAsStream("/asteroid/Asteroid_Anim4.png"));
+						asteroid5 = ImageIO.read(getClass().getResourceAsStream("/asteroid/Asteroid_Anim5.png"));
+						asteroid6 = ImageIO.read(getClass().getResourceAsStream("/asteroid/Asteroid_Anim6.png"));
 					} catch(IOException e) { // catches IO exceptions 
 						e.printStackTrace();
 					}
@@ -97,11 +97,11 @@ public class Asteroid
 				else if (number == 2) {
 					try {
 						//Variant asteroids
-						asteroidSmoll1 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Smoll1.png"));
-						asteroidSmoll2 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Smoll2.png"));
-						asteroidSmoll3 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Smoll3.png"));
-						asteroidSmoll4 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Smoll4.png"));
-						asteroidSmoll5 = ImageIO.read(getClass().getResourceAsStream("/rocket/Asteroid_Smoll5.png"));
+						asteroidSmoll1 = ImageIO.read(getClass().getResourceAsStream("/asteroid/Asteroid_Smoll1.png"));
+						asteroidSmoll2 = ImageIO.read(getClass().getResourceAsStream("/asteroid/Asteroid_Smoll2.png"));
+						asteroidSmoll3 = ImageIO.read(getClass().getResourceAsStream("/asteroid/Asteroid_Smoll3.png"));
+						asteroidSmoll4 = ImageIO.read(getClass().getResourceAsStream("/asteroid/Asteroid_Smoll4.png"));
+						asteroidSmoll5 = ImageIO.read(getClass().getResourceAsStream("/asteroid/Asteroid_Smoll5.png"));
 					} catch(IOException e) { // catches IO exceptions 
 						e.printStackTrace();
 					}
