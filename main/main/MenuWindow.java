@@ -20,6 +20,10 @@
 package main;
 
 import javax.swing.*;
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,18 +33,25 @@ public class MenuWindow {
         // creates the menu frame
         JFrame menuFrame = new JFrame("Space Race Game");
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        menuFrame.setSize(300, 200);
+        menuFrame.setSize(720, 780);
         menuFrame.setResizable(false);
         menuFrame.setLocationRelativeTo(null); // center on screen
 
         // creates a panel to hold the button
         JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
 
         // creates a Start Game button
         JButton startButton = new JButton("Start Game");
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
 
         // adds button to panel
-        panel.add(startButton);
+        panel.add(startButton, gbc);
 
         // adds panel to frame
         menuFrame.add(panel);
@@ -77,5 +88,9 @@ public class MenuWindow {
             	}
             }
         });
+    }
+    
+    public void GateClose() {
+    	
     }
 }
