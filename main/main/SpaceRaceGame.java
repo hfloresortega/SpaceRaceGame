@@ -63,7 +63,6 @@ public class SpaceRaceGame {
     public void update() {
         if (isRunning == true) {
             // move computer rocket
-            //player2.autoMove();
 
            
         }

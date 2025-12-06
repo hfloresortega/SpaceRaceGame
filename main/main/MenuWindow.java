@@ -100,47 +100,6 @@ public class MenuWindow extends Application{
         		b.printStackTrace();
         	}
     	});
-    	
-        // creates the menu frame
-//        JFrame menuFrame = new JFrame("Space Race Game");
-//        menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        menuFrame.setSize(720, 780);
-//        menuFrame.setResizable(false);
-//        menuFrame.setLocationRelativeTo(null); // center on screen
-
-        // creates a panel to hold the button
-//        JPanel panel = new JPanel();
-//        panel.setLayout(new GridBagLayout());
-
-        // creates a Start Game button
-        //JButton startButton = new JButton("Start Game");
-        
-//        GridBagConstraints gbc = new GridBagConstraints();
-//        gbc.insets = new Insets(0, 0, 0, 0);
-//        gbc.gridx = 0;
-//        gbc.gridy = 0;
-//        gbc.anchor = GridBagConstraints.CENTER;
-//
-//        // adds button to panel
-//        panel.add(startButton, gbc);
-
-        // adds panel to frame
-//        menuFrame.add(panel);
-
-        // make the menu visible
-//        menuFrame.setVisible(true);
-
-        // action when the start button is clicked
-//        startButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//            	try {
-//                // close the menu window
-//                menuFrame.dispose();
-//
-//                
-//            }
-//        });
     }
     
     public static void main(String[] args) {
