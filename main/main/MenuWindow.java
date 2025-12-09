@@ -21,11 +21,13 @@ package main;
 
 
 import javafx.application.Application;
+import javafx.embed.swing.SwingNode;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
+import javafx.scene.control.Label;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
@@ -44,6 +46,7 @@ public class MenuWindow extends Application{
 	//JavaFX window 
 	@Override
     public void start(Stage primaryStage) {
+		//Video Background
     	String videoPath = getClass().getResource("/video/Space_Star.mp4").toExternalForm();
     	Media media = new Media(videoPath);
     	MediaPlayer player = new MediaPlayer(media);
@@ -62,8 +65,10 @@ public class MenuWindow extends Application{
     		
     	});
     	
+    	//Button start
     	VBox controls = new VBox(10, startButton);
     	controls.setStyle("-fx-alignment: center;");
+    	
     	
     	
     	// StackPane: first video, after button
@@ -75,33 +80,35 @@ public class MenuWindow extends Application{
     	primaryStage.setTitle("Space Race Game");
     	primaryStage.show();
     }
-	
+	//First window with start button 
     private void MenuWindow() {
     	
+    	Stage newStage = new Stage();
+    	
+    	SwingNode swingNode = new SwingNode();
+    	createSwingContent(swingNode);
+    	//Create window
+    	Scene secondScene = new Scene(new VBox(swingNode), 720, 780);
+    	
+    	//Add fix for close window on x (not button)
+    	newStage.setOnCloseRequest(event -> {
+    	    System.exit(0); // завершает JVM полностью
+    	});
+    	
+    	newStage.setTitle("Space Race Game");
+    	newStage.setScene(secondScene);
+    	newStage.show();
+    }
+    //Transfer JLable to JavaFX and create GameWindow
+    private void createSwingContent(SwingNode swingNode) {
     	SwingUtilities.invokeLater(() -> {
-    		try {
-    		// create the game window
-            JFrame window = new JFrame("Space Race Game");
-            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            window.setResizable(false);
-
-            // create and add the game panel
-            GameWindow gameWindow = new GameWindow(720, 780);
-            window.add(gameWindow);
-            window.pack();
-            window.setLocationRelativeTo(null); // center on screen
-            window.setVisible(true);
-
-            // start the game loop
-            gameWindow.startGameThread();
-            
-        	} catch (Exception b) // catches exceptions when starting game
-        	{
-        		b.printStackTrace();
-        	}
+    		GameWindow gamePanel = new GameWindow(720, 780);
+    		gamePanel.startGameThread();
+    		swingNode.setContent(gamePanel);
+    		
     	});
     }
-    
+    //Start Program
     public static void main(String[] args) {
     	launch(args);
     }
