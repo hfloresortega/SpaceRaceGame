@@ -92,7 +92,7 @@ public class MenuWindow extends Application{
     	
     	//Add fix for close window on x (not button)
     	newStage.setOnCloseRequest(event -> {
-    	    System.exit(0); // завершает JVM полностью
+    	    System.exit(0); // End JVM full
     	});
     	
     	newStage.setTitle("Space Race Game");
