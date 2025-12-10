@@ -58,18 +58,31 @@ public class MenuWindow extends Application{
     	//Create button
     	Button startButton = new Button("Start Game");
     	
+    	//Video For Close Space Gate
+    	String videoPathButtonAction = getClass().getResource("/video/SpaceGate.mp4").toExternalForm();
+    	Media mediaGate = new Media(videoPathButtonAction);
+    	MediaPlayer playerGate = new MediaPlayer(mediaGate);
+    	MediaView mediaViewGate = new MediaView(playerGate);
+    	
     	//Action button
     	startButton.setOnAction(e -> { 
-    		primaryStage.close();
-    		MenuWindow();
+    		//Create panel for Space Gate video
+    		StackPane videoPane = new StackPane(mediaViewGate);
+    		Scene videoScene = new Scene(videoPane, 720, 780);
+    		primaryStage.setScene(videoScene);
+    		
+    		playerGate.play();
+    		
+    		playerGate.setOnEndOfMedia(() -> {
+    			primaryStage.close();
+    			MenuWindow();
+    		});
     		
     	});
     	
     	//Button start
     	VBox controls = new VBox(10, startButton);
     	controls.setStyle("-fx-alignment: center;");
-    	
-    	
     	
     	// StackPane: first video, after button
     	StackPane root = new StackPane();
