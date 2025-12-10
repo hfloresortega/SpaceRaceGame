@@ -51,8 +51,10 @@ public class GameWindow extends JPanel implements Runnable {
     Sound sound = new Sound();
     
     // timer variables
+    int maxTime = 60;
+    int remainingTime = maxTime;
     long startTime;
-    int elapsedTime = 0;
+   
     
     boolean isRunning = true;
     boolean gameOver = false;  
@@ -164,7 +166,8 @@ public class GameWindow extends JPanel implements Runnable {
            checkTop();
             
            // updates timer
-           elapsedTime = (int)((System.currentTimeMillis() - startTime)/ 1000);
+           remainingTime = maxTime - (int)((System.currentTimeMillis() - startTime) / 1000);
+           
             
            // check collisions for both players
            for (Asteroid ast: asteroids )
@@ -182,7 +185,8 @@ public class GameWindow extends JPanel implements Runnable {
            }
 
            // automatically end game after 60 seconds
-           if (elapsedTime >= 60 && gameOver == false) {
+           if (remainingTime <= 0 && !gameOver) {
+        	   remainingTime = 0;
                gameOver = true;  //it only happens once
                showFinalWinner(); // display who won
            }
@@ -235,7 +239,7 @@ public class GameWindow extends JPanel implements Runnable {
         g2.drawString("Computer Score: " + scorePlayer2, 10, 40);
 
         g2.setColor(Color.YELLOW);
-        g2.drawString("Time: " + elapsedTime + "s", 600, 20);
+        g2.drawString("Time: " + remainingTime + "s", 600, 20);
        
         g2.dispose();
     }
@@ -283,7 +287,7 @@ public class GameWindow extends JPanel implements Runnable {
 
         // reset timer
         startTime = System.currentTimeMillis();
-        elapsedTime = 0;
+        remainingTime = maxTime;
 
         // allow game loop to continue normally again
         gameOver = false;
