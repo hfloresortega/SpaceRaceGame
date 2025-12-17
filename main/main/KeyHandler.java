@@ -21,7 +21,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 
-	public boolean upPressed, downPressed, leftPressed, rightPressed;
+	public boolean upPressed, downPressed, leftPressed, rightPressed; // indicates which buttons are being pressed by player
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -30,11 +30,12 @@ public class KeyHandler implements KeyListener{
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e) { // called when a key is pressed 
 		
 		try {
 		int code = e.getKeyCode();
 		
+		//movement controls 
 		if (code == KeyEvent.VK_W) {
 			upPressed = true;
 		}
@@ -48,7 +49,7 @@ public class KeyHandler implements KeyListener{
 			rightPressed = true;
 		}
 	} 	
-		catch(Exception b) // catches unexpecterd errors when player presses a key
+		catch(Exception b) // catches unexpected errors when player presses a key
 		{
 			b.printStackTrace();
 		}
@@ -56,8 +57,11 @@ public class KeyHandler implements KeyListener{
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent e) 
+	{
 		int code = e.getKeyCode();
+		
+		// stops movement of rocket when a key is released
 		if (code == KeyEvent.VK_W) {
 			upPressed = false;
 		}
